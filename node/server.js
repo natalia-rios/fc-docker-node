@@ -12,15 +12,18 @@ const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
 app.get('/', (req,res) => {
-    connection.query(`INSERT INTO people (name) VALUES ('Natalia')`)
+  connection.query(`INSERT INTO people (name) VALUES ('Natalia')`)
 
-    connection.query(`SELECT name FROM people`, (error, results, fields) => {
-      res.send(`
-        <h1>Full Cycle Rocks!</h1>
-        <h2> Name list </h2>
-        <p> ${!!results.length ? results.map(p => `${p.name}`).join('') : ''} </p>
-      `)
-    })})
+  connection.query(`SELECT name FROM people`, (_error, people, _fields) => {
+    res.send(`
+      <h1>Full Cycle Rocks!</h1>
+      <h2> Name list </h2>
+      <ol>
+      ${!!people.length ? people.map(person => `<li>${person.name}</li>`).join('') : ''}
+    </ol>
+  `)  
+  })
+})
 
 app.listen(port, ()=> {
     console.log('Rodando na porta ' + port)
