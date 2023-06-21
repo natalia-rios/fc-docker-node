@@ -21,8 +21,7 @@ app.get('/', (req,res) => {
       <ol>
       ${!!people.length ? people.map(person => `<li>${person.name}</li>`).join('') : ''}
     </ol>
-  `)  
-  })
+  `)})
 })
 
 app.listen(port, ()=> {
